@@ -41,8 +41,7 @@ class News extends Component {
 
     handleNextPage = async () => {
         console.log('Next');
-        if (this.state.page > Math.ceil(this.state.totalResults / 20)) {
-            return;
+        if (this.state.page + 1 > Math.ceil(this.state.totalResults / 20)) {
         } else {
             let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&page=${this.state.page + 1}&pageSize=20`;
             let data = await fetch(url);
@@ -74,7 +73,7 @@ class News extends Component {
                 </div>
                 <div className="container d-flex justify-content-between">
                     <button type="button" disabled={this.state.page <= 1} className="btn btn-dark " onClick={this.handlePrevPage}>&larr; Previous Page</button>
-                    <button type="button" className="btn btn-dark " onClick={this.handleNextPage}>Next Page &rarr;</button>
+                    <button type="button" disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / 20)} className="btn btn-dark " onClick={this.handleNextPage}>Next Page &rarr;</button>
 
                 </div>
             </div>
