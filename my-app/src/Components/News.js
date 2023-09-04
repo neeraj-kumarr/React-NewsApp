@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem';
+import Spinner from './Spinner';
 class News extends Component {
     constructor() {
         super();
         console.log("This is a constructor component");
         this.state = {
             articles: [], // Initialize as an empty array
-            loading: true,
+            loading: false,
             page: 1,
 
         };
     }
 
     async componentDidMount() {
-        let url = "https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&pageSize=20";
+        let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         let parsedData = await data.json();
         console.log(parsedData);
         this.setState({
             articles: parsedData.articles,
-            totalResults: parsedData.totalResults
+            totalResults: parsedData.totalResults,
+            loading: false
+
         });
 
 
@@ -28,29 +31,34 @@ class News extends Component {
     handlePrevPage = async () => {
         console.log('Previous');
 
-        let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&page=${this.state.page - 1}&pageSize=20`;
+        let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        this.setState({ loading: true })
         let data = await fetch(url);
         let parsedData = await data.json();
         console.log(parsedData);
 
         this.setState({
             page: this.state.page - 1,
-            articles: parsedData.articles
+            articles: parsedData.articles,
+            loading: false
+
         })
     }
 
     handleNextPage = async () => {
         console.log('Next');
-        if (this.state.page + 1 > Math.ceil(this.state.totalResults / 20)) {
-        } else {
-            let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&page=${this.state.page + 1}&pageSize=20`;
+
+        if (!(this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize))) {
+            let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=7fcd230259fb4e45a2697a4db2ad3987&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+            this.setState({ loading: true })
             let data = await fetch(url);
             let parsedData = await data.json();
             console.log(parsedData);
 
             this.setState({
                 page: this.state.page + 1,
-                articles: parsedData.articles
+                articles: parsedData.articles,
+                loading: false
             })
         }
     }
@@ -59,8 +67,11 @@ class News extends Component {
         return (
             <div className="container my-4" >
                 <h1>NewsApp - Top Headline</h1>
+                {/* If loading is true, show spinner */}
+                {this.state.loading && <Spinner />}
                 <div className="row">
-                    {this.state.articles.map((element) => {
+                    {/* if loading is false, then show news */}
+                    {!this.state.loading && this.state.articles.map((element) => {
                         return <div className="col-md-4" key={element.url}>
                             <NewsItem
                                 title={element.title}
@@ -73,7 +84,7 @@ class News extends Component {
                 </div>
                 <div className="container d-flex justify-content-between">
                     <button type="button" disabled={this.state.page <= 1} className="btn btn-dark " onClick={this.handlePrevPage}>&larr; Previous Page</button>
-                    <button type="button" disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / 20)} className="btn btn-dark " onClick={this.handleNextPage}>Next Page &rarr;</button>
+                    <button type="button" disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} className="btn btn-dark " onClick={this.handleNextPage}>{this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize) ? 'No More Pages' : 'Next Page'}&rarr;</button>
 
                 </div>
             </div>
