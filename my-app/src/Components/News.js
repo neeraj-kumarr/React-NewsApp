@@ -94,6 +94,9 @@ class News extends Component {
                                     description={element.description}
                                     imageUrl={element.urlToImage}
                                     newsUrl={element.url}
+                                    author={element.author}
+                                    date={element.publishedAt}
+                                    source={element.source.name}
                                 />
                             </div>
                         }
@@ -102,7 +105,7 @@ class News extends Component {
                     })}
                 </div>
 
-                <div className="container d-flex justify-content-between">
+                <div className="d-flex justify-content-between">
                     <button type="button" disabled={this.state.page <= 1} className="btn btn-dark " onClick={this.handlePrevPage}>&larr; Previous Page</button>
                     <button type="button" disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} className="btn btn-dark " onClick={this.handleNextPage}>{this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize) ? 'No More Pages' : 'Next Page'}&rarr;</button>
 
