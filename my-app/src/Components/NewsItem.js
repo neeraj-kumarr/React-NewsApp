@@ -17,7 +17,7 @@ class NewsItem extends Component {
 
                     <span className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{ left: '85%' }}>{source}</span>
 
-                    <a href={newsUrl} target='_blank' rel="noreferrer" style={{ textAlign: 'right' }} className="btn btn-dark btn-sm">Read More</a>
+                    <a href={newsUrl} rel="noopener noreferrer" target='_blank' style={{ textAlign: 'right' }} className="btn btn-dark btn-sm">Read More</a>
                 </div>
             </div >
         );
