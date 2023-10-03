@@ -15,8 +15,17 @@ class NewsItem extends Component {
                     <p className="card-text fw-bold" style={{ margin: '0' }} ><small className="text-danger"><i>By {!author ? 'Unknown' : author}</i> </small></p>
                     <p className="card-text"><small className="text-muted">{new Date(date).toGMTString()} </small></p>
 
-                    <span className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{ left: '85%' }}>{source}</span>
+                    {/* <span className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{ left: '85%' }}>{source}</span> */}
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        position: 'absolute',
+                        right: '0'
+                    }
+                    }>
 
+                        <span className="badge rounded-pill bg-danger"> {source} </span>
+                    </div>
                     <a href={newsUrl} rel="noopener noreferrer" target='_blank' style={{ textAlign: 'right' }} className="btn btn-dark btn-sm">Read More</a>
                 </div>
             </div >
