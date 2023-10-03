@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "382c85e8b5aba188e455",
+    "revision": "790cbfcf94f97bebabaf",
     "url": "/React-NewsPulse/static/css/main.9dbf8a8a.chunk.css"
   },
   {
-    "revision": "382c85e8b5aba188e455",
-    "url": "/React-NewsPulse/static/js/main.53fe5813.chunk.js"
+    "revision": "790cbfcf94f97bebabaf",
+    "url": "/React-NewsPulse/static/js/main.6a3d2768.chunk.js"
   },
   {
     "revision": "988b39a51a2369ef682d",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/React-NewsPulse/static/media/loading.477e034f.gif"
   },
   {
-    "revision": "a22cb640edcaf58401c68e2c2c6a9750",
+    "revision": "f77c9dfae6da6a62255fb4d78930c834",
     "url": "/React-NewsPulse/index.html"
   }
 ];
